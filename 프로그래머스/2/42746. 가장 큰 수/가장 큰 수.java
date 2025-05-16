@@ -2,20 +2,25 @@ import java.util.*;
 
 class Solution {
     public String solution(int[] numbers) {
-        String[] strs = Arrays.stream(numbers)
-                .mapToObj(String::valueOf)
-                .toArray(String[]::new);
+        String answer = "";
 
-        Arrays.sort(strs, (a, b) -> (b + a).compareTo(a + b));
-
-        if (strs[0].equals("0")) {
-            return "0";
+        List<Integer> list = new ArrayList<>();
+        for(int i = 0; i < numbers.length; i++) {
+            list.add(numbers[i]);
         }
-
+        Collections.sort(list, (a, b) -> {
+            String as = String.valueOf(a), bs = String.valueOf(b);
+            return -Integer.compare(Integer.parseInt(as + bs), Integer.parseInt(bs + as));
+        });
         StringBuilder sb = new StringBuilder();
-        for (String s : strs) {
-            sb.append(s);
+        for(Integer i : list) {
+            sb.append(i);
         }
-        return sb.toString();
+        answer = sb.toString();
+        if(answer.charAt(0) == '0') {
+            return "0";
+        }else {
+            return answer;
+        }
     }
 }
