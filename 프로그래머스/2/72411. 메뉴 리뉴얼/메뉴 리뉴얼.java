@@ -3,7 +3,9 @@ class Solution {
     private static HashMap<Integer, HashMap<String, Integer>> courseMap;
 
     public String[] solution(String[] orders, int[] course) {
+        PriorityQueue<String> pq = new PriorityQueue<>();
         courseMap = new HashMap<>();
+
         for(int i:course){
             courseMap.put(i, new HashMap<>());
         }
@@ -14,19 +16,25 @@ class Solution {
             combinations(0, orderArray, "");
         }
 
-        ArrayList<String> answer = new ArrayList<>();
+        for (int len : course) {
+            HashMap<String, Integer> map = courseMap.get(len);
+            int max = 0;
 
-        for(HashMap<String, Integer> count : courseMap.values()){
-            count.values()
-                    .stream()
-                    .max(Comparator.comparingInt(o->o))
-                    .ifPresent(cnt -> count.entrySet()
-                            .stream()
-                            .filter(entry -> cnt.equals(entry.getValue()) && cnt > 1)
-                            .forEach(entry -> answer.add(entry.getKey())));
+            for (int count : map.values()) {
+                if (count > max) max = count;
+            }
+
+            for (String key : map.keySet()) {
+                if (map.get(key) == max && max > 1) {
+                    pq.offer(key);
+                }
+            }
         }
-        Collections.sort(answer);
-        return answer.toArray(new String[0]);
+
+        String[] answer = new String[pq.size()];
+        int i = 0;
+        while (!pq.isEmpty()) answer[i++] = pq.poll();
+        return answer;
     }
 
     public static void combinations(int idx, char[] order, String result){
