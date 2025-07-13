@@ -1,5 +1,6 @@
 def getImmigration(n ,times, time):
     res = 0
+    
     for i in times:
         res += (time // i)
     return res
