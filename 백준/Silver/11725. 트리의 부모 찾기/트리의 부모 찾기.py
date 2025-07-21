@@ -1,26 +1,28 @@
-# 트리의 부모 찾기
+from collections import deque
 
-node_num = int(input())
-arr = [[] for _ in range(node_num+1)]
-for i in range(node_num-1):
-    a, b = map(int,input().split())
-    arr[a].append(b)
-    arr[b].append(a)
+N = int(input())
+lst = [[] for _ in range(N+1)]
+for _ in range(N-1):
+    a, b = map(int, input().split())
+    lst[a].append(b)
+    lst[b].append(a)
 
-visited = [0 for _ in range(node_num+1)]
-parent = [0 for _ in range(node_num+1)]
-q = []
-q.append(1)
+def find_parent(n):
+    visited = [0] * (N+1)
+    parents = [0] * (N+1)
 
-while q:
-    x = q.pop()
-    if visited[x] != 1:
-        visited[x] = 1
-        
-        for k in arr[x] : 
-            if parent[k] == 0:
-                parent[k] = x
-            q.append(k)
+    q = deque()
+    q.append(n)
 
-for i in range(2, node_num+1):
-    print(parent[i])
+    while q:
+        x = q.popleft()
+        for i in lst[x]:
+            if visited[i] == 0:
+                visited[i] = 1
+                parents[i] = x
+                q.append(i)
+
+    for k in range(2, len(parents)):
+        print(parents[k])
+
+find_parent(1)
