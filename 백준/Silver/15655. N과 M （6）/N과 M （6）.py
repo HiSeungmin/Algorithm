@@ -1,14 +1,15 @@
-def dfs(n, lst):
-    if n == N:
-        if len(lst) == M:
-            print(*lst)
+def dfs(n, k, lst):
+    if n == M:
+        answer.append(lst)
         return
     
-    dfs(n+1,lst+[arr[n]])
-    dfs(n+1,lst)
+    for i in range(k, len(arr)):
+        dfs(n+1, i+1, lst+[arr[i]])
 
 N, M = map(int, input().split())
-arr = list(map(int,input().split()))
+arr = list(map(int, input().split()))
 arr.sort()
-v = [0]*N
-dfs(0,[])
+answer = []
+dfs(0, 0, [])
+for k in answer:
+    print(*k)
