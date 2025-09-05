@@ -3,25 +3,27 @@ MC = [ list(map(int,input().split())) for _ in range(5)]
 
 def chk(paper):
     cnt = 0
+    x = 0
+    y = 0
 
     for k in range(5): # 세로줄
-        if paper[0][k] == 0:
-            flag = True
+        if paper[x][y+k] == 0:
+            flag = 1
             for j in range(1,5):
-                if paper[j][k] != 0:
-                    flag = False
+                if paper[x+j][y+k] != 0:
+                    flag = 0
                     break
-            if flag == True:
+            if flag == 1:
                 cnt += 1
     
     for k in range(5): # 가로줄
-        if paper[k][0] == 0:
-            flag = True
+        if paper[x+k][y] == 0:
+            flag = 1
             for j in range(1,5):
-                if paper[k][j] != 0:
-                    flag = False
+                if paper[x+k][y+j] != 0:
+                    flag = 0
                     break
-            if flag == True:
+            if flag == 1:
                 cnt += 1
 
     if paper[0][0] == paper[1][1] == paper[2][2] == paper[3][3] == paper[4][4]:
@@ -33,7 +35,6 @@ def chk(paper):
                
 eMC = sum(MC, [])
 ePaper = sum(paper, [])
-
 for k in range(len(eMC)):
 
     nn = ePaper.index(eMC[k])
@@ -44,4 +45,4 @@ for k in range(len(eMC)):
 
     if chk(paper) >= 3:
         print(k+1)
-        exit(0)
+        exit(0)        
