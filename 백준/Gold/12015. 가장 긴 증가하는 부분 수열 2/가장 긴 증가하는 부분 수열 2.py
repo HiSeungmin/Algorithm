@@ -1,20 +1,19 @@
-n = int(input())
-cases = list(map(int, input().split()))
-lis = [0]
-
-for case in cases:
-    if lis[-1]<case:
-        lis.append(case)
+N = int(input())
+A = list(map(int, input().split(' ')))
+output_list = [0]
+for case in A:
+    if output_list[-1] < case:
+        output_list.append(case)
     else:
         left = 0
-        right = len(lis)
+        right = len(output_list)
 
-        while left<right:
-            mid = (right+left)//2
-            if lis[mid]<case:
-                left = mid+1
+        while left < right:
+            mid = (left + right) // 2
+            if output_list[mid] < case:
+                left = mid + 1
             else:
                 right = mid
-        lis[right] = case
+        output_list[right] = case
 
-print(len(lis)-1)
+print(len(output_list) - 1)
