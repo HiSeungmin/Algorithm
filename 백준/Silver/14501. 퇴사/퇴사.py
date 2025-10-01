@@ -1,10 +1,15 @@
 N = int(input())
-arr = [list(map(int, input().split())) for _ in range(N)]
-dp = [0 for _ in range(N + 1)]
+T = [0]*(N+2)
+P = [0]*(N+2)
+for i in range(1,N+1):
+    a, b = map(int,input().split())
+    T[i] = a
+    P[i] = b
 
-for i in range(N):
-    for j in range(i + arr[i][0], N+1):
-        if dp[j] < dp[i] + arr[i][1]:
-            dp[j] = dp[i] + arr[i][1]
+dp = [0]*(N+2)
+for i in range(1,N+1):
+    for j in range(i+T[i], N+2):
+        if dp[j] < dp[i]+P[i]:
+            dp[j] = dp[i]+P[i]
 
 print(dp[-1])
