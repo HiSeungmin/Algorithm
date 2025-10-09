@@ -1,18 +1,18 @@
 N = int(input())
 
-num = N//5
-cnt = 5000
-sugar = N
-
-while num > -1:
-    sugar = N - (5*num)
-    t = sugar//3
-    if sugar >= 0 and sugar%3 == 0:
-        cnt = min(cnt, num+t)
+cnt = 0
+i = 0
+a = 10
+while 1:
+    a = N-((N//5)*5)+(5*i)
     
-    num -= 1
+    if a%3 == 0:
+        cnt+=(N//5)-i
+        print(cnt+(a//3))
+        exit(0)
+    i+=1
+    if (5*i)>N:
+        break
 
-if cnt == 5000:
-    print(-1)
-else:
-    print(cnt)
+if(N%3==0): print(N//3)
+else: print(-1)
