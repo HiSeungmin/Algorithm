@@ -1,17 +1,17 @@
-n = int(input())
-t = []
-for i in range(n):
-    t.append(tuple(map(int, input().split())))
+N = int(input())
+meeting = []
 
-t.sort()
-t.sort(key = lambda a:a[1])
-p = 1
+for _ in range(N):
+    meeting.append(list(map(int, input().split())))
 
-small = t[0][1]
+meeting.sort()
+meeting.sort(key = lambda a:a[1])
+small = meeting[0][1]
 cnt = 1
-for r in range(1, len(t)):
-    if small <= t[r][0]:
-        small = t[r][1]
+
+for i in range(1,N):
+    if small <= meeting[i][0]:
+        small = meeting[i][1]
         cnt += 1
 
 print(cnt)
