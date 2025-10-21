@@ -1,20 +1,10 @@
-sensor = int(input())
-country = int(input())
-arr = list(map(int, input().split(' ')))
-arr2=[]
+N = int(input())
+K = int(input())
+arr = list(map(int, input().split()))
 arr.sort()
+d = []
+for i in range(N-1):
+    d.append(arr[i+1]-arr[i])
 
-arr2.append(0)
-for i in range(1, len(arr)):
-    a = abs(arr[i]-arr[i-1])
-    arr2.append(a)
-
-arr2.sort()
-p = country-1
-
-if p>0 and len(arr2)>=p:
-    for _ in range(p):
-        arr2.pop()
-
-result = sum(arr2)
-print(result)
+d.sort()
+print(sum(d[:N-K]))
