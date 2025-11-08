@@ -1,7 +1,15 @@
 import java.util.*;
 class Solution {
-    public static String[] solution(String[] strings, int n) {
-        Arrays.sort(strings, (o1, o2)-> o1.charAt(n) == o2.charAt(n)?o1.compareTo(o2):Character.compare(o1.charAt(n), o2.charAt(n)));
+    public static String[] solution(String[] strings, int n){
+
+        Arrays.sort(strings, (str1, str2)->{
+            if(str1.charAt(n) != str2.charAt(n)){
+                return str1.charAt(n) - str2.charAt(n);
+            } else{
+                return str1.compareTo(str2);
+            }
+        });
+
         return strings;
     }
 }
