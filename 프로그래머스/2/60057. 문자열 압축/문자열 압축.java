@@ -7,27 +7,27 @@ class Solution {
         for(int r=1; r<=len/2; r++){
             String pattern = s.substring(0,r);
             int cnt = 1;
-            String result = "";
+            int result = 0;
 
             for(int i=r; i<=s.length()-r; i+=r){
                 if(pattern.equals(s.substring(i, i+r))){
                     cnt++;
                 }else{
                     if(cnt>1){
-                        result += cnt+"";
+                        result += (int)Math.log10(cnt)+1;
                     }
-                    result += pattern;
                     pattern = s.substring(i,i+r);
+                    result += pattern.length();
                     cnt=1;
                 }
             }
             if(cnt>1){
-                result += ""+cnt;
+                result += (int)Math.log10(cnt)+1;
             }
-            result += pattern;
+            result += pattern.length();
 
             int div = s.length()%r;
-            answer = Math.min(answer, result.length()+div);
+            answer = Math.min(answer, result+div);
         }
 
         return answer;
