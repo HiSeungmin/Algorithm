@@ -1,28 +1,27 @@
 import java.util.*;
 class Solution {
     public static int solution(int n, int[] lost, int[] reserve) {
-        Set<Integer> lostSet = new HashSet<>();
-        Set<Integer> reserveSet = new HashSet<>();
+        int[] people = new int[n];
+        int answer = n;
 
-        for (int l : lost) lostSet.add(l);
-        for (int r : reserve) reserveSet.add(r);
+        for(int l : lost)
+            people[l-1]--;
+        for(int r : reserve)
+            people[r-1]++;
 
-        Set<Integer> both = new HashSet<>(lostSet);
-        both.retainAll(reserveSet);
-
-        lostSet.removeAll(both);
-        reserveSet.removeAll(both);
-
-        for (int l : lostSet) {
-            if (reserveSet.contains(l - 1)) {
-                reserveSet.remove(l - 1);
-            } else if (reserveSet.contains(l + 1)) {
-                reserveSet.remove(l + 1);
-            } else {
-                n--;
+        for(int i=0; i<people.length; i++){
+            if(people[i] == -1){
+                if(i-1 >= 0 && people[i-1] == 1){
+                    people[i]++;
+                    people[i-1]--;
+                }else if(i+1 < people.length && people[i+1] == 1){
+                    people[i]++;
+                    people[i+1]--;
+                }else{
+                    answer--;
+                }
             }
         }
-
-        return n;
+        return answer;
     }
 }
