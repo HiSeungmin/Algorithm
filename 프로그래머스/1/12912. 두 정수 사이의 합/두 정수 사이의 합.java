@@ -1,23 +1,12 @@
 class Solution {
     public static long solution(int a, int b) {
         long answer = 0;
-
-        if(a==b){
-            return a;
+        int sNum = (a<b)?a:b;
+        int bNum = (a<b)?b:a;
+        for(;sNum<=bNum;sNum++){
+            answer += sNum;
         }
-
-        long sum = 0;
-
-        if(a<b){
-            for(;a<=b;a++){
-                sum += a;
-            }
-        }else if(a>b){
-            for(;a>=b;a--){
-                sum += a;
-            }
-        }
-
-        return sum;
+    
+        return answer;
     }
 }
