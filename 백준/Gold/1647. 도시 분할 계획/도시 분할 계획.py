@@ -1,7 +1,5 @@
 import sys
-
 input = sys.stdin.readline
-
 
 def find(x):
     if x != parent[x]:
@@ -9,40 +7,29 @@ def find(x):
     return parent[x]
 
 
-def union_(a, b):
+def union(a, b):
     a = find(a)
     b = find(b)
 
-    # 이미 부모가 같다면 리턴
-    if a == b:
-        return
-
-    if rank[a] > rank[b]:
+    if a < b:
         parent[b] = a
-    elif rank[a] < rank[b]:
-        parent[a] = b
     else:
         parent[a] = b
-        rank[b] += 1
 
 
-N, M = map(int, input().split())
+V, E = map(int, input().split())
 
-graph = []
-parent = [i for i in range(N + 1)]
-rank = [0] * (N + 1) 
-for i in range(M):
-    a, b, cost = map(int, input().split())
-    graph.append((a, b, cost))
+edges = [list(map(int, input().split())) for _ in range(E)]
+parent = list(range(V+1))
 
-graph.sort(key=lambda x: x[2]) 
+edges.sort(key=lambda x: x[2]) 
 ans = 0 
-end_v = 0  
-for i in graph:
+end = 0  
+for edge in edges:
+    x, y, w = edge
+    if find(x) != find(y):
+        union(x, y)
+        ans += w
+        end = w
 
-    if find(i[0]) != find(i[1]):
-        union_(i[0], i[1])
-        ans += i[2] 
-        end_v = i[2] 
-
-print(ans - end_v)  
+print(ans - end)
