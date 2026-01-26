@@ -2,37 +2,40 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] mats, String[][] park) {
-        int answer = -1;
-        Arrays.sort(mats); 
-        for (int i = 0; i < mats.length / 2; i++) { 
-            int temp = mats[i];
-            mats[i] = mats[mats.length - 1 - i];
-            mats[mats.length - 1 - i] = temp;
+        int N = park.length;
+        int M = park[0].length;
+
+        int MAX = 0;
+        Arrays.sort(mats);
+        int[][] dp = new int[N][M];
+
+        for(int i=0; i<N; i++){
+            if(park[i][0].equals("-1")){
+                dp[i][0] = 1;
+                MAX = 1;
+            }
         }
-
-        for (int i : mats) {  
-            for (int j = 0; j <= park.length - i; j++) {  
-                for (int h = 0; h <= park[0].length - i; h++) {
-                    boolean chk = true;
-
-                    if (park[j][h].equals("-1") && j + i <= park.length && h + i <= park[0].length) {
-                        for (int k = 0; k < i; k++) { 
-                            for (int l = 0; l < i; l++) {
-                                if (!park[j + k][h + l].equals("-1")) { 
-                                    chk = false;
-                                    break;
-                                }
-                            }
-                            if (!chk) break; 
-                        }
-                        if (chk) {  
-                            return i;
-                        }
-                    }
-                }
+        for(int i=0; i<M; i++){
+            if(park[0][i].equals("-1")){
+                dp[0][i] = 1;
+                MAX = 1;
             }
         }
 
-        return answer;
+        for(int i=1; i<N; i++){
+            for(int j=1; j<M; j++){
+                if(!park[i][j].equals("-1"))
+                    continue;
+                int now = Math.min(dp[i-1][j], Math.min(dp[i][j-1], dp[i-1][j-1])) + 1;
+                MAX = Math.max(MAX, now); 
+                dp[i][j] = now;
+            }
+        }
+        for(int i=mats.length-1; i>=0; i--){
+            if(mats[i] <= MAX)
+                return mats[i];
+        }
+
+        return -1;
     }
 }
