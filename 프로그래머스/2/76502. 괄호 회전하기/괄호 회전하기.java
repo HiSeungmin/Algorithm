@@ -1,32 +1,37 @@
 import java.util.*;
 class Solution {
-    public int solution(String s) {
-        int answer = 0;
-        HashMap<Character, Character> map = new HashMap<>();
-        map.put(')','(');
-        map.put('}','{');
-        map.put(']','[');
+    public static int solution(String s) {
+        int answer=0;
+        int strLen = s.length();
 
-        int n = s.length();
-        s += s;
-
-        A:for(int i=0; i<n; i++){
-            Stack<Character> st = new Stack<>();
-            for(int k = i; k<i+n; k++){
-                char c = s.charAt(k);
-
-                if (!map.containsKey(c)){
-                    st.push(c);
-                }else if(st.isEmpty() || !st.pop().equals(map.get(c))){
-                    continue A;
-                }
-            }
-
-            if(st.isEmpty()){
-                answer += 1;
-            }
+        for(int i=0; i<strLen; i++){
+            answer += cal(s, i, strLen);
         }
 
         return answer;
+    }
+
+    private static int cal(String s, int strIdx, int strLen){
+
+        Stack<Character> st = new Stack<>();
+
+        for(int i=strIdx; i<strIdx+strLen; i++){
+            int idx = i%strLen;
+            char ch = s.charAt(idx);
+
+            if(ch == '(' || ch == '{' || ch =='['){
+                st.push(ch);
+            }else if(ch == ')' || ch == '}' || ch ==']'){
+                if(st.empty()){
+                    return 0;
+                }else if((st.peek() != '(' && ch == ')') || (st.peek() != '{' && ch == '}') || (st.peek() != '[' && ch == ']')){
+                    return 0;
+                }else{
+                    st.pop();
+                }
+            }
+        }
+        if(!st.empty()) return 0;
+        return 1;
     }
 }
