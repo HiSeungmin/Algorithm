@@ -1,18 +1,14 @@
-import java.util.*;
-
 class Solution {
-    public long solution(int n, int m, int x, int y, int[][] queries) {
-        long answer = -1;
-        
-        
+    public static long solution(int n, int m, int x, int y, int[][] queries) {
+        long answer;
         long r1 = x, r2 = x;
-        long c1 = y, c2 = y; 
-        
+        long c1 = y, c2 = y;
+
         for(int i=queries.length-1; i>=0; i--){
             int dir = queries[i][0];
             int cnt = queries[i][1];
-        
-            if(dir==0){ 
+
+            if(dir==0){
                 if(c1!=0) c1 += cnt;
                 c2 = Math.min(c2+cnt, m-1);
                 if(c1>m-1) return 0;
@@ -33,9 +29,9 @@ class Solution {
                 if(r2<0) return 0;
             }
         }
-        
+
         answer = (r2-r1+1)*(c2-c1+1);
-        
+
         return answer;
     }
 }
