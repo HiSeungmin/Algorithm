@@ -29,9 +29,7 @@ class Solution {
                 if(r2<0) return 0;
             }
         }
-
         answer = (r2-r1+1)*(c2-c1+1);
-
         return answer;
     }
 }
