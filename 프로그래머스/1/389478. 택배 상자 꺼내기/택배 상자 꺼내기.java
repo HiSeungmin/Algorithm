@@ -1,27 +1,23 @@
 class Solution {
-    public int solution(int n, int w, int num) {
-        int answer = 0; 
-        int row = (num-1)/w; 
-        int col = w-1; 
-        int pin = 0; 
+    public static int solution(int n, int w, int num) {
+        int cnt = 1;
+        int h, idx;
 
-        if (row%2 == 0) { 
-            pin = (num-1) % w;
-        } else { 
-            pin = col - (num-1) % w;
-        }
+        h = (num%w)!=0? (num/w)+1 : num/w;
+        idx = h%2 == 0? (w*h) - num + 1 : w - ((w*h)-num);
 
-        for (; row < (n+col)/w; row++) { 
-            int aboveBox = 0; 
-            if (row % 2 == 0) { 
-                aboveBox = pin + (row * w);
-            } else { 
-                aboveBox = (col - pin) + (row * w);
-            }
-            if (aboveBox < n) {
-                answer++;
+        for(int i=h+1; i<=(n/w) + 1; i++){
+
+            if(i % 2 == 0){
+                if ((w*i) - idx + 1 <= n){
+                    cnt += 1;
+                }
+            }else{
+                if ((w*i) - (w-idx) <= n){
+                    cnt += 1;
+                }
             }
         }
-        return answer;
+        return cnt;
     }
 }
