@@ -1,25 +1,29 @@
 import java.util.*;
 class Solution {
-    public List<Integer> solution(String s) {
+    public static int[] solution(String s) {
+        List<Integer> set = new ArrayList<>();
+
         s = s.substring(2, s.length()- 2).replace("},{", "-");
-        
-        String[] sArr = s.split("-");
 
-        Arrays.sort(sArr, Comparator.comparingInt(String::length));
+        String[] arr = s.split("-");
+        Arrays.sort(arr, Comparator.comparingInt(String::length));
 
-        List<Integer> list = new ArrayList<>();
+        for(int i=0; i<arr.length; i++){
+            String[] strArray = arr[i].split(",");
 
-        for (String el : sArr) {
-            String[] check = el.split(",");
-
-            for (int i = 0; i < check.length; i++) {
-                int num = Integer.parseInt(check[i]);
-
-                if (!list.contains(num)) {
-                    list.add(num);
-                }
+            for(String st : strArray){
+                int num = Integer.parseInt(st);
+                if(!set.contains(num))
+                    set.add(num);
             }
         }
-        return list;
+
+        int[] answer = new int[set.size()];
+        int k=0;
+        for(int num : set){
+            answer[k++] = num;
+        }
+
+        return answer;
     }
 }
