@@ -1,42 +1,41 @@
 import java.util.*;
 class Solution {
     public String[] solution(String[] files) {
-        
         File[] fileList = new File[files.length];
+
         for(int i=0; i<files.length; i++){
             String[] tmp = new String[2];
-            int start = 0, end;
+            int start=0, end;
             for(int j=0; j<2; j++){
                 end = split(start, files[i]);
-                tmp[j] = files[i].substring(start,end);
+                tmp[j] = files[i].substring(start, end);
                 start = end;
             }
             fileList[i] = new File(i, tmp[0], tmp[1], files[i]);
         }
-
-        Arrays.sort(fileList, (o1, o2)-> {
-            if(!o1.head.toUpperCase().equals(o2.head.toUpperCase())){
+        
+        Arrays.sort(fileList, (o1, o2) -> {
+            if(!o1.head.equals(o2.head)){
                 return o1.head.compareTo(o2.head);
-            }else if(o1.num != o2.num){
-                return o1.num - o2.num;
+            }else if(o1.number != o2.number){
+                return o1.number - o2.number;
             }else{
                 return o1.idx - o2.idx;
             }
         });
-
+        
         String[] answer = new String[files.length];
         int i=0;
-        for(File file:fileList){
-            answer[i++] = file.fileName;
+        for(File f:fileList){
+            answer[i++] = f.fileName;
         }
-
         return answer;
     }
 
-    public int split(int i, String fileName){
+    public static int split(int i, String fileName){
         boolean isNum = fileName.charAt(i)>='0' && fileName.charAt(i)<='9';
         for(; i<fileName.length(); i++){
-            if(isNum != (fileName.charAt(i)>='0' && fileName.charAt(i) <= '9')){
+            if(isNum != fileName.charAt(i)>='0' && fileName.charAt(i)<='9'){
                 break;
             }
         }
@@ -46,14 +45,14 @@ class Solution {
     class File{
         int idx;
         String head;
-        int num;
+        int number;
         String fileName;
-        File(int idx, String head, String number, String fileName){
+
+        File(int idx, String head, String number, String fileName) {
             this.idx = idx;
             this.head = head.toUpperCase();
-            this.num = Integer.parseInt(number);
+            this.number = Integer.parseInt(number);
             this.fileName = fileName;
         }
     }
-
 }
