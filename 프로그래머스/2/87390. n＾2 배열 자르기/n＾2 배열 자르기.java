@@ -8,7 +8,6 @@ class Solution {
             long col = i % n + 1;
             answer[idx++] = (int) Math.max(row, col);
         }
-
         return answer;
     }
 }
