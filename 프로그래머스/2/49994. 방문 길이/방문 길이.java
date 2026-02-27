@@ -1,7 +1,6 @@
 class Solution {
     public static int[] dx = {0, 0, 1, -1};
     public static int[] dy = {-1, 1, 0, 0};
-
     public static boolean[][][][] visit = new boolean[11][11][11][11];
 
     public int solution(String dirs) {
