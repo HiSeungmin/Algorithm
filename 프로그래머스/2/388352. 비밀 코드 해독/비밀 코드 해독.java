@@ -1,55 +1,51 @@
-import java.util.*;
-
 class Solution {
-    int[] arr = new int[5];
-    boolean[] visited;
-    Set<Integer>[] set;
-    int answer = 0;
-    
-    public int solution(int n, int[][] q, int[] ans) {
-        set = new Set[q.length];
-        for(int i = 0; i < q.length; i++){
-            set[i] = new HashSet<>();
-            for(int j = 0; j < 5; j++){
-                set[i].add(q[i][j]);
-            }
-        }
-        
-        visited = new boolean[n + 1];
-        backTrack(0, 1, n, q, ans);
+    private static int N;
+    private static int[] selected = new int[5];
+    private static int answer;
+    private static int[][] Q;
+    private static int[] Ans;
+
+    public static int solution(int n, int[][] q, int[] ans) {
+        N = n;
+        Q = q;
+        Ans = ans;
+        answer = 0;
+
+        dfs(1, 0);
+
         return answer;
     }
-    
-    public void backTrack(int depth, int cur, int n, int[][] q, int[] ans){
-        if(depth == 5){
-            if(isValid(q, ans)){
-                answer++;
-            }
+
+    static void dfs(int start, int depth) {
+        if (depth == 5) {
+            isValid(selected);
             return;
         }
 
-        for(int i = cur; i <= n; i++){
-            if(visited[i])
-                continue;
-            arr[depth] = i;
-            visited[i] = true;
-            backTrack(depth + 1, i + 1, n, q, ans);
-            visited[i] = false;
+        for (int i = start; i <= N; i++) {
+            selected[depth] = i;
+            dfs(i + 1, depth + 1);
         }
     }
-    
-    public boolean isValid(int[][] q, int[] ans){
-        for(int i = 0; i < q.length; i++){
-            int sum = 0;
-            for(int num : arr){
-                if(set[i].contains(num))
-                    sum++;
-            }
+
+    static void isValid(int[] arr) {
+        for (int i = 0; i < Ans.length; i++) {
+            int[] qq = Q[i];
+            int expected = Ans[i];
+            int cnt = 0;
             
-            if(ans[i] != sum)
-                return false;
+            for (int k : qq) {
+                for (int v : arr) {
+                    if (k == v) {
+                        cnt++;
+                        break;
+                    }
+                }
+            }
+            if (cnt != expected) {
+                return;
+            }
         }
-        
-        return true;
+        answer++;
     }
 }
