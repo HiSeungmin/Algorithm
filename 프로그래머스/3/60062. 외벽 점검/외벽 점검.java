@@ -37,7 +37,6 @@ class Solution {
         }
     }
 
-
     public static int solution(int n, int[] weak, int[] dist) {
         length = weak.length;
         Weak = new int[length*2];
