@@ -8,7 +8,6 @@ class Solution {
                 return answer;
             }
 
-
             if(bill[0]<bill[1]){
                 bill[1] = bill[1]/2;
             }else{
@@ -16,6 +15,5 @@ class Solution {
             }
             answer += 1;
         }
-
     }
 }
