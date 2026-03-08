@@ -1,6 +1,9 @@
 import java.util.*;
+
 class Solution {
+    
     public static int[] solution(int[] sequence, int k) {
+        
         int[] answer = new int[2];
         int start = 0, end=0, sum=sequence[0];
         int minNum = Integer.MAX_VALUE;
