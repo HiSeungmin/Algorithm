@@ -68,6 +68,7 @@ class Solution {
         if(cnt2 == 0){
             return -1;
         }
+        
         return cnt+cnt2;
     }
 }
