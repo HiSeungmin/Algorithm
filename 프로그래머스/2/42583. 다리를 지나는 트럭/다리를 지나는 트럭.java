@@ -6,16 +6,22 @@ class Solution {
         int time = 0;
 
         for(int i = 0; i<truck_weights.length; i++){
+            
             int truck = truck_weights[i];
+            
             while(true){
+                
                 if(queue.isEmpty()){
+                    
                     queue.add(truck);
                     sum += truck;
                     time++;
                     break;
                 }else if(queue.size() == bridge_length){
+                    
                     sum -= queue.poll();
                 }else{
+                    
                     if(sum + truck <= weight){
                         queue.add(truck);
                         sum += truck;
