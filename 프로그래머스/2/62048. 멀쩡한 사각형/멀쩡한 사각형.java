@@ -1,7 +1,6 @@
 class Solution {
     public static long solution(int W, int H) {
         long answer;
-
         long w = (long)W;
         long h = (long)H;
 
