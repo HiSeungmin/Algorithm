@@ -22,6 +22,7 @@ class Solution {
                 answer[k++] = matrix[i][j];
             }
         }
+        
         return answer;
     }
 }
