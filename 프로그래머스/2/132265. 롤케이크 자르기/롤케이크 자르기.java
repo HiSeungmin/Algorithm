@@ -18,6 +18,7 @@ class Solution {
 
             if(left.size() == right.size()) answer+=1;
         }
+        
         return answer;
     }
 }
