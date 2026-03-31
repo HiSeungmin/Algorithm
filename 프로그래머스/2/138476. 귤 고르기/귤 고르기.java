@@ -17,7 +17,6 @@ class Solution {
             answer += 1;
             if(sum >= k){ break; }
         }
-
         return answer;
     }
 }
