@@ -14,12 +14,14 @@ class Solution {
                 visited[i][j] = 0;
             }
         }
+        
         visited[0][0] = 1;
         Deque<int[]> deque = new ArrayDeque<>();
         deque.addFirst(new int[]{0,0});
 
         while(!deque.isEmpty()){
             int[] arr = deque.pop();
+            
             int x = arr[0];
             int y = arr[1];
 
