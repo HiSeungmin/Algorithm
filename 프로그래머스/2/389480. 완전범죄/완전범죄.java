@@ -1,9 +1,11 @@
 import java.util.*;
 class Solution {
     static final int INF = 100000;
+    
     public static int solution(int[][] info, int n, int m){
         int size = info.length;
         int[][] dp = new int [size+1][m];
+        
         for(int i=0; i<=size; i++){
             Arrays.fill(dp[i], INF);
         }
@@ -19,6 +21,7 @@ class Solution {
                 }
             }
         }
+        
         int min = INF;
         for(int j=0; j<m; j++){
             min = Math.min(dp[size][j], min);
