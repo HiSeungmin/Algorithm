@@ -2,34 +2,34 @@ import sys
 sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
 
+N = int(input())
+M = int(input())
+
+edges = [list(map(int, input().split())) for _ in range(M)]
+parent = list(range(N+1))
+
+edges.sort(key = lambda x:x[2])
+
 def find(x):
-    if x == parent[x]:
+    if parent[x] == x:
         return x
     parent[x] = find(parent[x])
     return parent[x]
 
-def union(x, y):
-    x = find(x)
-    y = find(y)
+def union(a, b):
+    A = find(a)
+    B = find(b)
 
-    if x <= y:
-        parent[y] = x
+    if(A<=B):
+        parent[B] = A
     else:
-        parent[x] = y
+        parent[A] = B
 
-n = int(input())
-m = int(input())
-arr = []
-parent = [i for i in range(n+1)]
-res = 0
-for i in range(m):
-    a, b, c = map(int, input().split())
-    arr.append((c, a, b))
+answer = 0
+for edge in edges:
+    x, y, w = edge
+    if(find(x)!=find(y)):
+        union(x, y)
+        answer += w
 
-arr.sort(key=lambda x:x[0])
-for dis, a, b in arr:
-    if find(a) != find(b):
-        union(a, b)
-        res += dis
-
-print(res)
+print(answer)
